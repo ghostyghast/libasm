@@ -21,7 +21,7 @@ all: $(NAME)
 
 clean:
 	@rm -rf $(OBJ) 
-fclean:
+fclean: clean
 	@rm -rf $(NAME)
 re: clean all
 
