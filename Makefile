@@ -6,23 +6,25 @@ OBJ = $(SRC:.a=.o)
 
 LINKER = gcc
 
-CC = as
+CC = nasm
 
-FLAGS = -nostdlib -static
+ASSEMBLER_FLAGS = -f elf64
+
+LINKER_FLAGS = -static -nostdlib
 
 %.o : %.a
 	echo compiling $<
-	$(CC) $< -o $@
+	$(CC) $< -o $@ $(ASSEMBLER_FLAGS)
 
 $(NAME): $(OBJ)
-	$(LINKER) -o $(NAME) $(OBJ) $(FLAGS)
+	$(LINKER) $(OBJ) -o $(NAME) $(LINKER_FLAGS)
 
 all: $(NAME)
 
 clean:
 	@rm -rf $(OBJ) 
 fclean: clean
-	@rm -rf $(NAME)
-re: clean all
+	@rm -rf $(NAME) 
+re: clean all 
 
 .PHONY: clean fclean re
